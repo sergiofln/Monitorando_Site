@@ -2,34 +2,37 @@ package main
 
 import (
 	"fmt"
+	"net/http"
 	"os"
 )
 
 func main() {
 
 	exibirIntroducao()
-	exibirMenu()
+	for {
+		exibirMenu()
 
-	comando := lerComando()
+		comando := lerComando()
 
-	switch comando {
-	case 1:
-		fmt.Println("Iniciar Monitoramento")
-	case 2:
-		fmt.Println("Exibir Logs")
-	case 0:
-		fmt.Println("Sair do Programa")
-		os.Exit(0)
-	default:
-		fmt.Println("Não conheço este comando!")
-		os.Exit(-1)
+		switch comando {
+		case 1:
+			IniciarMonitoramento()
+		case 2:
+			fmt.Println("Exibindo Logs...")
+		case 0:
+			fmt.Println("Saindo do Programa")
+			os.Exit(0)
+		default:
+			fmt.Println("Não conheço este comando!")
+			os.Exit(-1)
+		}
 	}
 }
 
 func exibirIntroducao() {
 	nome := "Sérgio"
 	versao := 1.1
-	fmt.Println("Olá, Sr.", nome)
+	fmt.Println("Olá, Srº", nome)
 	fmt.Println("Este programa esta na versão", versao)
 }
 
@@ -45,4 +48,19 @@ func lerComando() int {
 	fmt.Println("O comando escolhido foi", comandoLido)
 
 	return comandoLido
+}
+
+func IniciarMonitoramento() {
+	fmt.Println("Monitorando...")
+	// Site com URL inexistente
+	site := "https://httpbin.org/status/404" // ou 200
+	// Site existente
+	//site := "https://www.alura.com.br"
+	resp, _ := http.Get(site)
+	
+	if resp.StatusCode == 200 {
+		fmt.Println("Site:", site, "foi carregado com sucesso!")
+	} else {
+		fmt.Println("Site:", site, "está com problemas. Status Code:", resp.StatusCode)
+	}
 }
