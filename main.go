@@ -13,7 +13,19 @@ func main() {
 	fmt.Println("0 - Sair do Programa")
 
 	var comando int
-	// fmt.Scanf("%d", &comando) 
 	fmt.Scan(&comando)
 	fmt.Println("O comando escolhido foi", comando)
+
+	if comando == 1 {
+		fmt.Println("Iniciando Monitoramento")
+
+	} else if comando == 2 {
+		fmt.Println("Exibindo Logs")
+
+	} else if comando == 0 {
+		fmt.Println("Saindo do Programa")
+
+	} else {
+		fmt.Println("Comando não conhecido...")
+	}
 }
